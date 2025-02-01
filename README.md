@@ -1,4 +1,4 @@
-# Angular v19
+# Basics
 
 ## Components
 
@@ -41,3 +41,66 @@ export class AppComponent {
 ```
 
 ### Composing components
+
+```jsx
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'app-user',
+  template: `
+    Username: {{ username }}
+  `,
+})
+export class UserComponent {
+  username = 'youngTech';
+}
+
+@Component({
+  selector: 'app-root',
+  template: `<section><app-user /></section>`,
+  imports: [UserComponent]
+})
+export class AppComponent {}
+
+```
+
+## Template Syntax
+
+```jsx
+@Component({
+// ...
+	template: `
+      @if (isServerRunning) {
+        <span>Yes, the server is running</span>
+      } 
+      @else {
+        <span>No, the server is not running</span>
+      }
+  `,
+ // ...
+ })
+ export class AppComponent {
+  isLoggedIn = true;
+  isServerRunning = true;
+}
+```
+
+## Property binding
+
+```jsx
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  styleUrls: ['app.component.css'],
+  template: `
+    <div [contentEditable]="isEditable"></div>
+  `,
+})
+export class AppComponent {
+  isEditable = true;
+}
+
+```
+
+## Event handling
