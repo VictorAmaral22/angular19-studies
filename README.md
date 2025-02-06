@@ -104,3 +104,106 @@ export class AppComponent {
 ```
 
 ## Event handling
+
+We use the “( )” to wrap the props on the HTML element, this way we can attach a certain function to it.
+
+```jsx
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <section (mouseover)="onMouseOver()">
+      There's a secret message for you, hover to reveal:
+      {{ message }}
+    </section>
+  `,
+})
+export class AppComponent {
+  message = '';
+
+  onMouseOver() {
+    this.message = 'Way to go 🚀';
+  }
+}
+
+```
+
+## Input
+
+Similar to props on React.
+
+```jsx
+import {Component, Input} from '@angular/core';
+
+@Component({
+  selector: 'app-user',
+  template: `
+    <p>The user's name is {{ name }}</p>
+  `,
+})
+export class UserComponent {
+  @Input() name = '';
+}
+
+```
+
+```jsx
+import {Component} from '@angular/core';
+import {UserComponent} from './user.component';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <app-user name="Simran" />
+  `,
+  imports: [UserComponent],
+})
+export class AppComponent {}
+
+```
+
+## Output
+
+It is used to trigger events to a parent component, similar to a event change on React.
+
+```jsx
+import {Component, Output, EventEmitter} from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  styles: `.btn { padding: 5px; }`,
+  template: `
+    <button class="btn" (click)="addItem()">Add Item</button>
+  `,
+})
+export class ChildComponent {
+  @Output() addItemEvent = new EventEmitter<string>();
+
+  addItem() {
+    this.addItemEvent.emit('🐢');
+  }
+}
+
+```
+
+```jsx
+import {Component} from '@angular/core';
+import {ChildComponent} from './child.component';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <app-child (addItemEvent)="addItem($event)" />
+    <p>🐢 all the way down {{ items.length }}</p>
+  `,
+  imports: [ChildComponent],
+})
+export class AppComponent {
+  items = new Array();
+
+  addItem(item: string) {
+    this.items.push(item);
+  }
+}
+```
