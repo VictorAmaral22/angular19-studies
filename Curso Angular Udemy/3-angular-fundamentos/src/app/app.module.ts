@@ -3,10 +3,12 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CardComponentComponent } from './card-component/card-component.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CardComponentComponent
   ],
   imports: [
     BrowserModule,
